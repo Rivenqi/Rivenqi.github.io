@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Riven Q">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="特别说明此方法仅适用于Windows 10系统。已知不支持iOS系统版本： 16.7.11、17.0~17.4 准备工作：ios.exe将tool\go-ios\ios.exe工具拷贝到C:\Windows\System32目录下 wintun将tool\wintun\bin\amd64\wintun.dll拷贝到C:\Windows\System32目录下 ios驱动安装tool\i4Tools">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下iOS手动抓纯净包方法">
+<meta property="og:url" content="https://rivenqi.github.io/2025/05/16/Windows%E4%B8%8BiOS%E6%89%8B%E5%8A%A8%E6%8A%93%E7%BA%AF%E5%87%80%E5%8C%85%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Rivenqi&#96;s Blog">
+<meta property="og:description" content="特别说明此方法仅适用于Windows 10系统。已知不支持iOS系统版本： 16.7.11、17.0~17.4 准备工作：ios.exe将tool\go-ios\ios.exe工具拷贝到C:\Windows\System32目录下 wintun将tool\wintun\bin\amd64\wintun.dll拷贝到C:\Windows\System32目录下 ios驱动安装tool\i4Tools">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-16T10:40:03.000Z">
+<meta property="article:modified_time" content="2025-06-20T09:07:17.158Z">
+<meta property="article:author" content="Riven Q">
+<meta property="article:tag" content="Tools">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Windows下iOS手动抓纯净包方法 - Rivenqi`s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"rivenqi.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Riven Q</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Windows下iOS手动抓纯净包方法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-16 10:40" pubdate>
+          2025年5月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Windows下iOS手动抓纯净包方法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h1><p>此方法仅适用于Windows 10系统。<br>已知不支持iOS系统版本： 16.7.11、17.0~17.4</p>
+<h1 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h1><h2 id="ios-exe"><a href="#ios-exe" class="headerlink" title="ios.exe"></a>ios.exe</h2><p>将tool\go-ios\ios.exe工具拷贝到C:\Windows\System32目录下</p>
+<h2 id="wintun"><a href="#wintun" class="headerlink" title="wintun"></a>wintun</h2><p>将tool\wintun\bin\amd64\wintun.dll拷贝到C:\Windows\System32目录下</p>
+<h2 id="ios驱动"><a href="#ios驱动" class="headerlink" title="ios驱动"></a>ios驱动</h2><p>安装tool\i4Tools8_v8.36_Setup_x64.exe</p>
+<h1 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h1><h2 id="1、查看设备版本及UDID信息"><a href="#1、查看设备版本及UDID信息" class="headerlink" title="1、查看设备版本及UDID信息"></a>1、查看设备版本及UDID信息</h2><p>启动控制台输入“ios info”。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs elixir">&gt; ios info<br>&#123;<span class="hljs-string">&quot;level&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;info&quot;</span></span>,<span class="hljs-string">&quot;msg&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;no udid specified using first device in list&quot;</span></span>,<span class="hljs-string">&quot;time&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;2025-04-21T17:29:27+08:00&quot;</span></span>,<span class="hljs-string">&quot;udid&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;00008110000C25321AB8801E&quot;</span></span>&#125;<br>&#123;<span class="hljs-string">&quot;level&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;info&quot;</span></span>,<span class="hljs-string">&quot;msg&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;no udid specified using first device in list&quot;</span></span>,<span class="hljs-string">&quot;time&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;2025-04-21T17:29:27+08:00&quot;</span></span>,<span class="hljs-string">&quot;udid&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;00008110000C25321AB8801E&quot;</span></span>&#125;<br>&#123;<span class="hljs-string">&quot;ActivationState&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Activated&quot;</span></span>,<span class="hljs-string">&quot;ActivationStateAcknowledged&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;BasebandActivationTicketVersion&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;V2&quot;</span></span>,<span class="hljs-string">&quot;BasebandCertId&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">495958265</span>,<span class="hljs-string">&quot;BasebandChipID&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">1327329</span>,<span class="hljs-string">&quot;BasebandKeyHashInformation&quot;</span><span class="hljs-symbol">:</span>&#123;<span class="hljs-string">&quot;AKeyStatus&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">2</span>,<span class="hljs-string">&quot;SKeyHash&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=&quot;</span></span>,<span class="hljs-string">&quot;SKeyStatus&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">0</span>&#125;,<span class="hljs-string">&quot;BasebandMasterKeyHash&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;1B41607650EBF11C6B39F41CB267DC64C121A9BCF44DBA5D28F55ACC86361BBA366554CD57B4C466055803E1EF81C870&quot;</span></span>,<span class="hljs-string">&quot;BasebandRegionSKU&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==&quot;</span></span>,<span class="hljs-string">&quot;BasebandSerialNumber&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;koMLrg==&quot;</span></span>,<span class="hljs-string">&quot;BasebandStatus&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;BBInfoAvailable&quot;</span></span>,<span class="hljs-string">&quot;BasebandVersion&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;4.20.03&quot;</span></span>,<span class="hljs-string">&quot;BluetoothAddress&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;20:37:a5:9c:71:ae&quot;</span></span>,<span class="hljs-string">&quot;BoardId&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">10</span>,<span class="hljs-string">&quot;BootSessionID&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;CD45F0B0-5E26-4192-BFB7-A34AAC9AC767&quot;</span></span>,<span class="hljs-string">&quot;BrickState&quot;</span><span class="hljs-symbol">:false</span>,<span class="hljs-string">&quot;BuildVersion&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;22C152&quot;</span></span>,<span class="hljs-string">&quot;CPUArchitecture&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;arm64e&quot;</span></span>,<span class="hljs-string">&quot;CarrierBundleInfoArray&quot;</span><span class="hljs-symbol">:[]</span>,<span class="hljs-string">&quot;CertID&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">495958265</span>,<span class="hljs-string">&quot;ChipID&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">33040</span>,<span class="hljs-string">&quot;ChipSerialNo&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;koMLrg==&quot;</span></span>,<span class="hljs-string">&quot;DeviceClass&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;iPhone&quot;</span></span>,<span class="hljs-string">&quot;DeviceColor&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;1&quot;</span></span>,<span class="hljs-string">&quot;DeviceName&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;iPhone25f&quot;</span></span>,<span class="hljs-string">&quot;DieID&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">3418596847419422</span>,<span class="hljs-string">&quot;EthernetAddress&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;20:37:a5:a1:fa:f4&quot;</span></span>,<span class="hljs-string">&quot;FirmwareVersion&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;iBoot-11881.62.2&quot;</span></span>,<span class="hljs-string">&quot;FusingStatus&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">3</span>,<span class="hljs-string">&quot;HardwareModel&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;D17AP&quot;</span></span>,<span class="hljs-string">&quot;HardwarePlatform&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;t8110&quot;</span></span>,<span class="hljs-string">&quot;HasSiDP&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;HostAttached&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;HumanReadableProductVersionString&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;18.2&quot;</span></span>,<span class="hljs-string">&quot;InternationalMobileEquipmentIdentity&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;355160953704528&quot;</span></span>,<span class="hljs-string">&quot;InternationalMobileEquipmentIdentity2&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;355160953517474&quot;</span></span>,<span class="hljs-string">&quot;MLBSerialNumber&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;F3X13660F3S16DT1&quot;</span></span>,<span class="hljs-string">&quot;MobileEquipmentIdentifier&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;35516095370452&quot;</span></span>,<span class="hljs-string">&quot;MobileSubscriberCountryCode&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;&quot;</span></span>,<span class="hljs-string">&quot;MobileSubscriberNetworkCode&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;&quot;</span></span>,<span class="hljs-string">&quot;ModelNumber&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;NLEC3&quot;</span></span>,<span class="hljs-string">&quot;NonVolatileRAM&quot;</span><span class="hljs-symbol">:</span>&#123;<span class="hljs-string">&quot;StartupMute&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;MQ==&quot;</span></span>,<span class="hljs-string">&quot;SystemAudioVolumeSaved&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;MQ==&quot;</span></span>,<span class="hljs-string">&quot;aks-inactivity&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;AQ==&quot;</span></span>,<span class="hljs-string">&quot;auto-boot&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;dHJ1ZQ==&quot;</span></span>,<span class="hljs-string">&quot;backlight-level&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;ODA3&quot;</span></span>,<span class="hljs-string">&quot;backlight-nits&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;MHgwMDUwMDAwMA==&quot;</span></span>,<span class="hljs-string">&quot;boot-args&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;&quot;</span></span>,<span class="hljs-string">&quot;bootdelay&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;MA==&quot;</span></span>,<span class="hljs-string">&quot;debug-uarts&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Mw==&quot;</span></span>,<span class="hljs-string">&quot;display_EFI&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;MTg1NTU=&quot;</span></span>,<span class="hljs-string">&quot;display_nonUI&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;MzQzMDY=&quot;</span></span>,<span class="hljs-string">&quot;fm-account-masked&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;MeKAouKAouKAouKAouKAokAx4oCi4oCi4oCi4oCi4oCiLmNvbQ==&quot;</span></span>,<span class="hljs-string">&quot;fm-activation-locked&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;WUVT&quot;</span></span>,<span class="hljs-string">&quot;fm-spstatus&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;WUVT&quot;</span></span>,<span class="hljs-string">&quot;usbcfwflasherResult&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Tm8gZXJyb3Jz&quot;</span></span>&#125;,<span class="hljs-string">&quot;PairRecordProtectionClass&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">4</span>,<span class="hljs-string">&quot;PartitionType&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;GUID_partition_scheme&quot;</span></span>,<span class="hljs-string">&quot;PasswordProtected&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;PkHash&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;HY+4+Q5Sgetk+XkvJPC+JveogdZ8izPATsnFgb+QlPt8WpAdvR5vXg7j+ABJdwkn&quot;</span></span>,<span class="hljs-string">&quot;ProductName&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;iPhone OS&quot;</span></span>,<span class="hljs-string">&quot;ProductType&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;iPhone14,5&quot;</span></span>,<span class="hljs-string">&quot;ProductVersion&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;18.2&quot;</span></span>,<span class="hljs-string">&quot;ProductionSOC&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;ProtocolVersion&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;2&quot;</span></span>,<span class="hljs-string">&quot;RegionInfo&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;CH/A&quot;</span></span>,<span class="hljs-string">&quot;SIMStatus&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;kCTSIMSupportSIMStatusNotInserted&quot;</span></span>,<span class="hljs-string">&quot;SIMTrayStatus&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;kCTSIMSupportSIMTrayInsertedNoSIM&quot;</span></span>,<span class="hljs-string">&quot;SerialNumber&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;TXW59DMQK6&quot;</span></span>,<span class="hljs-string">&quot;SoftwareBehavior&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;QQEAAAAAAAAAAAAAAAAAAA==&quot;</span></span>,<span class="hljs-string">&quot;SoftwareBundleVersion&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;&quot;</span></span>,<span class="hljs-string">&quot;SupportedDeviceFamilies&quot;</span><span class="hljs-symbol">:</span>[<span class="hljs-number">1</span>],<span class="hljs-string">&quot;TelephonyCapability&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;TimeIntervalSince1970&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">1745227768.551595</span>,<span class="hljs-string">&quot;TimeZone&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Asia/Shanghai&quot;</span></span>,<span class="hljs-string">&quot;TimeZoneOffsetFromUTC&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">28800</span>,<span class="hljs-string">&quot;TrustedHostAttached&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;UniqueChipID&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">3418596847419422</span>,<span class="hljs-string">&quot;UniqueDeviceID&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;00008110-000C25321AB8801E&quot;</span></span>,<span class="hljs-string">&quot;UntrustedHostBUID&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;31115263-299677366289464532&quot;</span></span>,<span class="hljs-string">&quot;UseRaptorCerts&quot;</span><span class="hljs-symbol">:true</span>,<span class="hljs-string">&quot;Uses24HourClock&quot;</span><span class="hljs-symbol">:false</span>,<span class="hljs-string">&quot;WiFiAddress&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;20:37:a5:a6:6b:1e&quot;</span></span>,<span class="hljs-string">&quot;WirelessBoardSerialNumber&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;127430930408&quot;</span></span>,<span class="hljs-string">&quot;instruments:hardwareInformation&quot;</span><span class="hljs-symbol">:</span>&#123;<span class="hljs-string">&quot;hwCPU64BitCapable&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">1</span>,<span class="hljs-string">&quot;hwCPUsubtype&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">2</span>,<span class="hljs-string">&quot;hwCPUtype&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">16777228</span>,<span class="hljs-string">&quot;numberOfCpus&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">6</span>,<span class="hljs-string">&quot;numberOfPhysicalCpus&quot;</span><span class="hljs-symbol">:</span><span class="hljs-number">6</span>&#125;,<span class="hljs-string">&quot;instruments:networkInformation&quot;</span><span class="hljs-symbol">:</span>&#123;<span class="hljs-string">&quot;en0&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Wi-Fi&quot;</span></span>,<span class="hljs-string">&quot;en1&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Ethernet Adapter (en1)&quot;</span></span>,<span class="hljs-string">&quot;en2&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Ethernet Adapter (en2)&quot;</span></span>,<span class="hljs-string">&quot;lo0&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;Loopback&quot;</span></span>&#125;,<span class="hljs-string">&quot;kCTPostponementStatus&quot;</span><span class="hljs-symbol">:<span class="hljs-string">&quot;kCTPostponementStatusActivated&quot;</span></span>&#125;<br></code></pre></td></tr></table></figure>
+<p>其中“ProductVersion”为系统版本信息，“udid”为设备ID信息。</p>
+<h2 id="2、挂载镜像（仅iOS-13-1和13-3）"><a href="#2、挂载镜像（仅iOS-13-1和13-3）" class="headerlink" title="2、挂载镜像（仅iOS 13.1和13.3）"></a>2、挂载镜像（仅iOS 13.1和13.3）</h2><p>特别说明：挂载成功后不关机可以不再进行以下操作</p>
+<h3 id="2-1、将tool-image目录拷贝到任意目录下，记录目录路径，如：D-image"><a href="#2-1、将tool-image目录拷贝到任意目录下，记录目录路径，如：D-image" class="headerlink" title="2.1、将tool\image目录拷贝到任意目录下，记录目录路径，如：D:\image"></a>2.1、将tool\image目录拷贝到任意目录下，记录目录路径，如：D:\image</h3><h3 id="2-2、执行命令“ios-image-auto-–basedir-”"><a href="#2-2、执行命令“ios-image-auto-–basedir-”" class="headerlink" title="2.2、执行命令“ios image auto –basedir&#x3D;”"></a>2.2、执行命令“ios image auto –basedir&#x3D;<where_dev_images_are_stored>”</h3><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs smalltalk">&gt; ios image auto --basedir=<span class="hljs-type">D</span>:\image<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;warning&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;go-ios agent is not running. You might need to start it with &#x27;ios tunnel start&#x27; for ios17+. Use ENABLE_GO_IOS_AGENT=user for userspace tunnel or ENABLE_GO_IOS_AGENT=kernel for kernel tunnel for the experimental daemon mode.&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:04+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;no udid specified using first device in list&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:04+08:00&quot;</span>,<span class="hljs-comment">&quot;udid&quot;</span>:<span class="hljs-comment">&quot;b0535569d069f27c8bd345ba35eb398c44c10393&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;warning&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;failed to get tunnel info&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:04+08:00&quot;</span>,<span class="hljs-comment">&quot;udid&quot;</span>:<span class="hljs-comment">&quot;b0535569d069f27c8bd345ba35eb398c44c10393&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;device iOS version: 13.1.2, getting developer image for iOS 13.1&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:04+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;D:\\image\\13.1\\DeveloperDiskImage.dmg already downloaded from https://github.com/mspvirajpatel/&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:04+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;basedir&quot;</span>:<span class="hljs-comment">&quot;D:\\image&quot;</span>,<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;success downloaded image&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:04+08:00&quot;</span>,<span class="hljs-comment">&quot;udid&quot;</span>:<span class="hljs-comment">&quot;b0535569d069f27c8bd345ba35eb398c44c10393&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;warning&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;there is already a developer image mounted, reboot the device if you want to remove it. aborting.&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:05+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;image&quot;</span>:<span class="hljs-comment">&quot;D:\\image\\13.1\\DeveloperDiskImage.dmg&quot;</span>,<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;success mounting image&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-22T19:25:05+08:00&quot;</span>,<span class="hljs-comment">&quot;udid&quot;</span>:<span class="hljs-comment">&quot;b0535569d069f27c8bd345ba35eb398c44c10393&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3、启动隧道（仅iOS-17-需要）"><a href="#3、启动隧道（仅iOS-17-需要）" class="headerlink" title="3、启动隧道（仅iOS 17+需要）"></a>3、启动隧道（仅iOS 17+需要）</h2><h3 id="3-1、打开开发者选项"><a href="#3-1、打开开发者选项" class="headerlink" title="3.1、打开开发者选项"></a>3.1、打开开发者选项</h3><p>“设置-隐私与安全性-开发者模式”</p>
+<h3 id="2-2、启动控制台输入“ios-tunnel-start-–udid-–userspace”。"><a href="#2-2、启动控制台输入“ios-tunnel-start-–udid-–userspace”。" class="headerlink" title="2.2、启动控制台输入“ios tunnel start –udid&#x3D; –userspace”。"></a>2.2、启动控制台输入“ios tunnel start –udid&#x3D;<udid> –userspace”。</h3><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs smalltalk">&gt; ios tunnel start --udid=<span class="hljs-number">00008110000</span>C25321AB8801E<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;warning&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;go-ios agent is not running. You might need to start it with &#x27;ios tunnel start&#x27; for ios17+. Use ENABLE_GO_IOS_AGENT=user for userspace tunnel or ENABLE_GO_IOS_AGENT=kernel for kernel tunnel for the experimental daemon mode.&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-21T18:03:35+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;Tunnel server started&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-21T18:03:35+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;start tunnel&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-21T18:03:36+08:00&quot;</span>,<span class="hljs-comment">&quot;udid&quot;</span>:<span class="hljs-comment">&quot;00008110000C25321AB8801E&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;connect to lockdown tunnel endpoint on device&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-21T18:03:36+08:00&quot;</span>&#125;<br><span class="hljs-number">2025</span>/<span class="hljs-number">04</span>/<span class="hljs-number">21</span> <span class="hljs-number">18</span>:<span class="hljs-number">03</span>:<span class="hljs-number">37</span> <span class="hljs-type">Using</span> existing driver <span class="hljs-number">0.14</span><br><span class="hljs-number">2025</span>/<span class="hljs-number">04</span>/<span class="hljs-number">21</span> <span class="hljs-number">18</span>:<span class="hljs-number">03</span>:<span class="hljs-number">37</span> <span class="hljs-type">Creating</span> adapter<br><span class="hljs-number">2025</span>/<span class="hljs-number">04</span>/<span class="hljs-number">21</span> <span class="hljs-number">18</span>:<span class="hljs-number">03</span>:<span class="hljs-number">37</span> <span class="hljs-type">Removed</span> orphaned adapter <span class="hljs-comment">&quot;tun0 1&quot;</span><br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;windows cmd&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-21T18:03:38+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;C:\\Windows\\system32\\netsh.exe interface ipv6 set address tun0 fdea:a129:7df0::2/64&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-21T18:03:38+08:00&quot;</span>&#125;<br>&#123;<span class="hljs-comment">&quot;level&quot;</span>:<span class="hljs-comment">&quot;info&quot;</span>,<span class="hljs-comment">&quot;msg&quot;</span>:<span class="hljs-comment">&quot;batch size: 1 mtu:1280&quot;</span>,<span class="hljs-comment">&quot;time&quot;</span>:<span class="hljs-comment">&quot;2025-04-21T18:03:38+08:00&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="3、找到应用的BUNDLE-ID"><a href="#3、找到应用的BUNDLE-ID" class="headerlink" title="3、找到应用的BUNDLE_ID"></a>3、找到应用的BUNDLE_ID</h2><p>执行“ios apps –list”，第一列为BUNDLE_ID</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs stylus">&gt; ios apps <span class="hljs-attr">--list</span><br>com<span class="hljs-selector-class">.taobao</span><span class="hljs-selector-class">.taobao4iphone</span> 淘宝 <span class="hljs-number">10.40</span>.<span class="hljs-number">10</span><br>com<span class="hljs-selector-class">.jd</span><span class="hljs-selector-class">.jinrong</span> 京东金融 <span class="hljs-number">6.9</span>.<span class="hljs-number">25</span><br>cn<span class="hljs-selector-class">.xuexi</span><span class="hljs-selector-class">.qg</span> 学习强国 <span class="hljs-number">2.58</span>.<span class="hljs-number">0</span><br>com.<span class="hljs-number">360</span>buy<span class="hljs-selector-class">.jdmobile</span> 京东 <span class="hljs-number">169811</span><br>com<span class="hljs-selector-class">.ownbook</span><span class="hljs-selector-class">.notes</span> 爱思全能版 <span class="hljs-number">2.2</span>.<span class="hljs-number">0</span><br>cn.<span class="hljs-number">12306</span><span class="hljs-selector-class">.rails12306</span> 铁路<span class="hljs-number">12306</span> <span class="hljs-number">5.9</span>.<span class="hljs-number">3</span><br>com<span class="hljs-selector-class">.yaymedialabs</span><span class="hljs-selector-class">.putong</span> 探探 <span class="hljs-number">6.6</span>.<span class="hljs-number">1</span><br>me<span class="hljs-selector-class">.ele</span><span class="hljs-selector-class">.ios</span><span class="hljs-selector-class">.eleme</span> 饿了么 <span class="hljs-number">11.15</span>.<span class="hljs-number">38</span><br>com<span class="hljs-selector-class">.kuaishou</span><span class="hljs-selector-class">.nebula</span> 快手极速版 <span class="hljs-number">12.8</span>.<span class="hljs-number">20</span><br>com<span class="hljs-selector-class">.cainiao</span><span class="hljs-selector-class">.cnwireless</span> 菜鸟 <span class="hljs-number">8.8</span>.<span class="hljs-number">20</span><br>com<span class="hljs-selector-class">.ss</span><span class="hljs-selector-class">.iphone</span><span class="hljs-selector-class">.article</span><span class="hljs-selector-class">.lite</span> 头条搜索极速版 <span class="hljs-number">9.7</span>.<span class="hljs-number">9</span><br>com<span class="hljs-selector-class">.baidu</span><span class="hljs-selector-class">.BDPhoneBrowser</span> 百度浏览器 <span class="hljs-number">6.12</span>.<span class="hljs-number">3</span><br>xidi<span class="hljs-selector-class">.cd</span><span class="hljs-selector-class">.com</span> 喜弟 <span class="hljs-number">8.2</span><br>com<span class="hljs-selector-class">.mizaokeji</span><span class="hljs-selector-class">.gzlt</span> 蓝客 <span class="hljs-number">1.1</span>.<span class="hljs-number">2</span><br>com<span class="hljs-selector-class">.tencent</span><span class="hljs-selector-class">.QQKSong</span> 全民K歌 <span class="hljs-number">9.0</span>.<span class="hljs-number">38</span><br>com<span class="hljs-selector-class">.wuba</span><span class="hljs-selector-class">.zhuanzhuan</span> 转转 <span class="hljs-number">10.44</span>.<span class="hljs-number">10</span><br>com<span class="hljs-selector-class">.baidu</span><span class="hljs-selector-class">.map</span> 百度地图 <span class="hljs-number">20.7</span>.<span class="hljs-number">30</span><br>com<span class="hljs-selector-class">.wemomo</span><span class="hljs-selector-class">.momoappdemo1</span> MOMO陌陌 <span class="hljs-number">9.16</span>.<span class="hljs-number">3</span><br>com<span class="hljs-selector-class">.ygpy</span><span class="hljs-selector-class">.txla</span> 七彩狐狸 <span class="hljs-number">1.4</span>.<span class="hljs-number">2</span><br>jiquanK<span class="hljs-selector-class">.jiquan</span> 姬圈 <span class="hljs-number">4.5</span>.<span class="hljs-number">4</span><br>com<span class="hljs-selector-class">.ss</span><span class="hljs-selector-class">.iphone</span><span class="hljs-selector-class">.article</span><span class="hljs-selector-class">.News</span> 今日头条 <span class="hljs-number">11.5</span>.<span class="hljs-number">0</span><br>com<span class="hljs-selector-class">.tencent</span><span class="hljs-selector-class">.mttlite</span> QQ浏览器 <span class="hljs-number">15.5</span>.<span class="hljs-number">0</span><br>com<span class="hljs-selector-class">.ss</span><span class="hljs-selector-class">.iphone</span><span class="hljs-selector-class">.ugc</span><span class="hljs-selector-class">.aweme</span><span class="hljs-selector-class">.lite</span> 抖音极速版 <span class="hljs-number">30.3</span>.<span class="hljs-number">0</span><br>com<span class="hljs-selector-class">.lemon</span><span class="hljs-selector-class">.lv</span> 剪映 <span class="hljs-number">14.6</span>.<span class="hljs-number">0</span><br>com<span class="hljs-selector-class">.tencent</span><span class="hljs-selector-class">.xin</span> 微信 <span class="hljs-number">8.0</span>.<span class="hljs-number">51</span><br>......(省略）<br></code></pre></td></tr></table></figure>
+<p>例如微信“BUNDLE_ID”为“com.tencent.xin”。</p>
+<h2 id="3、找到应用的进程ID"><a href="#3、找到应用的进程ID" class="headerlink" title="3、找到应用的进程ID"></a>3、找到应用的进程ID</h2><p>根据“BUNDLE_ID”使用“ios ps –apps –nojson”获取所有应用的进程ID（PID），如果没有可能是应用没有启动。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs stylus">&gt; ios ps <span class="hljs-attr">--apps</span> <span class="hljs-attr">--nojson</span><br>PID NAME                   START_DATE           BUNDLE_ID<br><span class="hljs-number">200</span> PosterBoard            <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">56</span>:<span class="hljs-number">48</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.PosterBoard</span><br><span class="hljs-number">224</span> AccessibilityUIServer  <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">56</span>:<span class="hljs-number">49</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.AccessibilityUIServer</span><br><span class="hljs-number">238</span> WidgetRenderer_Default <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">56</span>:<span class="hljs-number">51</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.chrono</span><span class="hljs-selector-class">.WidgetRenderer-Default</span><br><span class="hljs-number">275</span> InputUI                <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">56</span>:<span class="hljs-number">56</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.InputUI</span><br><span class="hljs-number">301</span> Spotlight              <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">56</span>:<span class="hljs-number">59</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.Spotlight</span><br><span class="hljs-number">387</span> BaiduBoxApp            <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">05</span>  com<span class="hljs-selector-class">.baidu</span><span class="hljs-selector-class">.BaiduMobile</span><br><span class="hljs-number">390</span> MobileSafari           <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">05</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.mobilesafari</span><br><span class="hljs-number">391</span> NetworkSniffer         <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">05</span>  com<span class="hljs-selector-class">.fish</span><span class="hljs-selector-class">.stream</span><br><span class="hljs-number">392</span> NIO2022                <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">05</span>  lojii<span class="hljs-selector-class">.nio</span>.<span class="hljs-number">2022</span><br><span class="hljs-number">393</span> Files                  <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">05</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.DocumentsApp</span><br><span class="hljs-number">420</span> Cainiao4iPhone         <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">11</span>  com<span class="hljs-selector-class">.cainiao</span><span class="hljs-selector-class">.cnwireless</span><br><span class="hljs-number">423</span> MomoChat               <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">12</span>  com<span class="hljs-selector-class">.wemomo</span><span class="hljs-selector-class">.momoappdemo1</span><br><span class="hljs-number">424</span> AegirProxyApp          <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">12</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.NanoUniverse</span><span class="hljs-selector-class">.AegirProxyApp</span><br><span class="hljs-number">443</span> MobileCal              <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">14</span>:<span class="hljs-number">57</span>:<span class="hljs-number">18</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.mobilecal</span><br><span class="hljs-number">511</span> Maps                   <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">15</span>:<span class="hljs-number">02</span>:<span class="hljs-number">29</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.Maps</span><br><span class="hljs-number">519</span> EscrowSecurityAlert    <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">15</span>:<span class="hljs-number">02</span>:<span class="hljs-number">34</span>  com<span class="hljs-selector-class">.apple</span><span class="hljs-selector-class">.EscrowSecur</span><br><span class="hljs-number">885</span> WeChat                 <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">21</span> <span class="hljs-number">18</span>:<span class="hljs-number">44</span>:<span class="hljs-number">41</span>  com<span class="hljs-selector-class">.tencent</span><span class="hljs-selector-class">.xin</span><br>......（省略）<br></code></pre></td></tr></table></figure>
+<p>已知微信的“BUNDLE_ID”为““com.tencent.xin”，通过命令的结果可以找到PID为“885”。</p>
+<h2 id="4、开始进行抓包"><a href="#4、开始进行抓包" class="headerlink" title="4、开始进行抓包"></a>4、开始进行抓包</h2><p>执行“ios pcap –pid&#x3D;<pid>”后开始操作应用，下面以“微信”为例。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&gt; ios pcap <span class="hljs-attribute">--pid</span>=885<br>&#123;<span class="hljs-string">&quot;level&quot;</span>:<span class="hljs-string">&quot;info&quot;</span>,<span class="hljs-string">&quot;msg&quot;</span>:<span class="hljs-string">&quot;no udid specified using first device in list&quot;</span>,<span class="hljs-string">&quot;time&quot;</span>:<span class="hljs-string">&quot;2025-04-21T18:50:18+08:00&quot;</span>,<span class="hljs-string">&quot;udid&quot;</span>:<span class="hljs-string">&quot;00008110000C25321AB8801E&quot;</span>&#125;<br>&#123;<span class="hljs-string">&quot;level&quot;</span>:<span class="hljs-string">&quot;info&quot;</span>,<span class="hljs-string">&quot;msg&quot;</span>:<span class="hljs-string">&quot;no udid specified using first device in list&quot;</span>,<span class="hljs-string">&quot;time&quot;</span>:<span class="hljs-string">&quot;2025-04-21T18:50:18+08:00&quot;</span>,<span class="hljs-string">&quot;udid&quot;</span>:<span class="hljs-string">&quot;00008110000C25321AB8801E&quot;</span>&#125;<br>&#123;<span class="hljs-string">&quot;level&quot;</span>:<span class="hljs-string">&quot;info&quot;</span>,<span class="hljs-string">&quot;msg&quot;</span>:<span class="hljs-string">&quot;Create pcap file: dump-885-1745232619.pcap&quot;</span>,<span class="hljs-string">&quot;time&quot;</span>:<span class="hljs-string">&quot;2025-04-21T18:50:19+08:00&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>“dump-885-1745232619.pcap”为最终生成的报文名，保存在当前命令执行的目录下。</p>
+<h2 id="5、结束抓包"><a href="#5、结束抓包" class="headerlink" title="5、结束抓包"></a>5、结束抓包</h2><p>使用“Ctrl + C”终止“ios pcap –pid&#x3D;<pid>”命名，“dump-885-1745232619.pcap”报文会从0Kb变成真实大小。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Tools/" class="print-no-link">#Tools</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Windows下iOS手动抓纯净包方法</div>
+      <div>https://rivenqi.github.io/2025/05/16/Windows下iOS手动抓纯净包方法/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Riven Q</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/28/libmsaoaidsec.so%20Frida%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87%E4%B8%8E%E6%95%B0%E5%AD%97%E5%A3%B3%E8%84%B1%E5%A3%B3/" title="libmsaoaidsec.so Frida检测绕过与数字壳脱壳">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">libmsaoaidsec.so Frida检测绕过与数字壳脱壳</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/16/ISAKMP%E6%8A%A5%E6%96%87%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/" title="ISAKMP报文封装格式及解释">
+                        <span class="hidden-mobile">ISAKMP报文封装格式及解释</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
